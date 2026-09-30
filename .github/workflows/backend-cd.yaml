@@ -22,7 +22,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: starter/backend
+        working-directory: Movie-Picture-Pipeline-main/starter/backend
 
     steps:
       - name: Checkout code
@@ -50,7 +50,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: starter/backend
+        working-directory: Movie-Picture-Pipeline-main/starter/backend
 
     steps:
       - name: Checkout code
@@ -104,7 +104,7 @@ jobs:
           echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
 
       - name: Build Docker image
-        working-directory: starter/backend
+        working-directory: Movie-Picture-Pipeline-main/starter/backend
         run: |
           docker build \
             --tag "${{ steps.image.outputs.image }}" \
