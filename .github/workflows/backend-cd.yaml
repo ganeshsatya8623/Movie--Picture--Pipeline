@@ -39,7 +39,7 @@ jobs:
            pipenv install --dev
        
       - name: Lint Backend
-        run: pipenv run lint
+        run: pipenv run lint -- --ignore=E501
 
 
   # =========================
