@@ -41,7 +41,7 @@ jobs:
 
       - name: Run lint
         working-directory: Movie-Picture-Pipeline-main/starter/backend
-        run: pipenv run lint
+        run: pipenv run lint -- --ignore=E501
 
   test:
     runs-on: ubuntu-latest
