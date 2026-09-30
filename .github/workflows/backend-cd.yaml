@@ -34,8 +34,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
-
+        run: 
+           pip install pipenv
+           pipenv install --dev
+       
       - name: Lint Backend
         run: |
           python -m py_compile $(find . -name "*.py")
@@ -62,11 +64,12 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+           pip install pipenv
+           pipenv install --dev
 
       - name: Test Backend
-        run: pytest
-
+        run: pipenv run pytest
 
   # =========================
   # BUILD AND PUSH DOCKER IMAGE
