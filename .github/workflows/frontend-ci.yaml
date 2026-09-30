@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "starter/frontend/**"
+      - "Movie-Picture-Pipeline-main/starter/frontend/**"
   workflow_dispatch:
 
 permissions:
@@ -22,22 +22,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: starter/frontend/.nvmrc
+          node-version-file: Movie-Picture-Pipeline-main/starter/frontend/**/.nvmrc
 
       - name: Cache npm
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-frontend-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+          key: ${{ runner.os }}-frontend-npm-${{ hashFiles('Movie-Picture-Pipeline-main/starter/frontend/package-lock.json')}}
           restore-keys: |
             ${{ runner.os }}-frontend-npm-
 
       - name: Install dependencies
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
         run: npm ci
 
       - name: Run lint
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
         run: npm run lint
 
   test:
@@ -52,22 +52,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: starter/frontend/.nvmrc
+          node-version-file: Movie-Picture-Pipeline-main/starter/frontend/.nvmrc
 
       - name: Cache npm
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-frontend-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+          key: ${{ runner.os }}-frontend-npm-${{ hashFiles('Movie-Picture-Pipeline-main/starter/frontend/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-frontend-npm-
 
       - name: Install dependencies
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
         run: npm ci
 
       - name: Run tests
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
         run: npm test -- --watchAll=false
 
   build:
@@ -83,18 +83,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: starter/frontend/.nvmrc
+          node-version-file: Movie-Picture-Pipeline-main/starter/frontend/.nvmrc
 
       - name: Cache npm
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-frontend-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
+          key: ${{ runner.os }}-frontend-npm-${{ hashFiles('Movie-Picture-Pipeline-main/starter/frontend/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-frontend-npm-
 
       - name: Install dependencies
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
         run: npm ci
 
       - name: Build Docker image
@@ -102,4 +102,4 @@ jobs:
           docker build \
             --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 \
             --tag=mp-frontend:ci \
-            ./starter/frontend
+            ./Movie-Picture-Pipeline-main/starter/frontend
