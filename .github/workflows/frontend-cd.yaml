@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'Movie-Picture-Pipeline-main/starter/frontend'
+      - 'Movie-Picture-Pipeline-main/starter/frontend/**'
       - '.github/workflows/frontend-cd.yaml'
   workflow_dispatch:
 
