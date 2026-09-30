@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'starter/frontend/**'
+      - 'Movie-Picture-Pipeline-main/starter/frontend'
       - '.github/workflows/frontend-cd.yaml'
   workflow_dispatch:
 
@@ -22,7 +22,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
 
     steps:
       - name: Checkout
@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: '18.14.2'
           cache: npm
-          cache-dependency-path: starter/frontend/package-lock.json
+          cache-dependency-path: Movie-Picture-Pipeline-main/starter/frontend/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -47,7 +47,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
 
     steps:
       - name: Checkout
@@ -58,7 +58,7 @@ jobs:
         with:
           node-version: '18.14.2'
           cache: npm
-          cache-dependency-path: starter/frontend/package-lock.json
+          cache-dependency-path: Movie-Picture-Pipeline-main/starter/frontend/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -94,7 +94,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build Docker image
-        working-directory: starter/frontend
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend
         run: |
           docker build \
             --build-arg REACT_APP_MOVIE_API_URL=${{ secrets.BACKEND_API_URL }} \
@@ -132,12 +132,12 @@ jobs:
         uses: imranismail/setup-kustomize@v2
 
       - name: Set frontend image
-        working-directory: starter/frontend/k8s
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend/k8s
         run: |
           kustomize edit set image frontend=${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/frontend:${{ github.sha }}
 
       - name: Deploy to EKS
-        working-directory: starter/frontend/k8s
+        working-directory: Movie-Picture-Pipeline-main/starter/frontend/k8s
         run: |
           kustomize build . | kubectl apply -f -
 
