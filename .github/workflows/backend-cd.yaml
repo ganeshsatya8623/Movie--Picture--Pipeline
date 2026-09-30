@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'starter/backend/**'
+      - 'Movie-Picture-Pipeline-main/starter/backend/**'
       - '.github/workflows/backend-cd.yaml'
   workflow_dispatch:
 
@@ -22,7 +22,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: starter/backend
+        working-directory: Movie-Picture-Pipeline-main/starter/backend
 
     steps:
       - name: Checkout
@@ -48,7 +48,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: starter/backend
+        working-directory: Movie-Picture-Pipeline-main/starter/backend
 
     steps:
       - name: Checkout
@@ -92,7 +92,7 @@ jobs:
         
 
       - name: Build Docker image
-        working-directory: starter/backend
+        working-directory: Movie-Picture-Pipeline-main/starter/backend
         run: |
           docker build \
             --tag ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }} \
@@ -129,12 +129,12 @@ jobs:
         uses: imranismail/setup-kustomize@v2
 
       - name: Set backend image
-        working-directory: starter/backend/k8s
+        working-directory: Movie-Picture-Pipeline-main/starter/backend/k8s
         run: |
           kustomize edit set image backend=${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/backend:${{ github.sha }}
 
       - name: Deploy to EKS
-        working-directory: starter/backend/k8s
+        working-directory: Movie-Picture-Pipeline-main/starter/backend/k8s
         run: |
           kustomize build . | kubectl apply -f -
 
